@@ -20,11 +20,14 @@ const Button: FunctionComponent<ButtonGeneral> = ({
     <button
       onClick={onClick}
       disabled={disabled}
+      type={onClick ? 'button' : 'submit'}
       className={`font-2 min-w-100px rounded-lg p-4 text-sm font-medium transition-colors duration-200 ${classes.join(
-        ' '
+        ' ',
       )} ${getClassesBySize(size ? size : 'md')}`}
     >
-      {icon && <span className="mr-2">{<FontAwesomeIcon icon={icon} />}</span>}
+      {icon ? (
+        <span className="mr-2">{<FontAwesomeIcon icon={icon} />}</span>
+      ) : null}
       {children}
     </button>
   );

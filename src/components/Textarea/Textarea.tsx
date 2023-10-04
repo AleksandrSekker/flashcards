@@ -1,27 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface InputProps {
+interface TextareaProps {
   title?: string;
   placeholder: string;
-  type: string;
   className?: string;
   name: string;
   errors?: string;
   value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // Use HTMLTextAreaElement for textarea
 }
 
-const Input = ({
+const Textarea = ({
   title,
   placeholder,
-  type,
   className,
   name,
   errors,
   value,
   onChange,
-}: InputProps) => {
+}: TextareaProps) => {
   return (
     <div className={className}>
       {title ? (
@@ -30,9 +28,8 @@ const Input = ({
         </label>
       ) : null}
 
-      <input
+      <textarea
         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 shadow-sm outline-0"
-        type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange} // Use the onChange handler passed from the parent
@@ -53,4 +50,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default Textarea;

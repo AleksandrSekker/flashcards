@@ -1,21 +1,21 @@
-import React, { type ChangeEvent, useEffect, useState } from "react";
+import React, { type ChangeEvent, useEffect, useState } from 'react';
 
 interface SearchInputProps {
-    title: string;
-    placeholder: string;
-    type: string;
-    className?: string;
-    name: string;
-    value: string | number;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    debounceDelay?: number;
+  title: string;
+  placeholder: string;
+  type: string;
+  className?: string;
+  name: string;
+  value: string | number;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  debounceDelay?: number;
 }
 
 const SearchInput = ({
   title,
   placeholder,
   type,
-  className = "",
+  className = '',
   value,
   onChange,
   debounceDelay = 500,
@@ -23,7 +23,11 @@ const SearchInput = ({
   const [searchValue, setSearchValue] = useState(value);
 
   useEffect(() => {
-    const handler = setTimeout(() => {onChange({ target: { value: searchValue } } as ChangeEvent<HTMLInputElement>)}, debounceDelay);
+    const handler = setTimeout(() => {
+      onChange({
+        target: { value: searchValue },
+      } as ChangeEvent<HTMLInputElement>);
+    }, debounceDelay);
 
     return () => {
       clearTimeout(handler);
@@ -36,7 +40,7 @@ const SearchInput = ({
 
   return (
     <div className={className}>
-      <label className="mb-2 block text-sm font-medium text-gray-900">
+      <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
         {title}
       </label>
       <input
