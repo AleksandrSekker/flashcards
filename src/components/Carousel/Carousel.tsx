@@ -47,7 +47,7 @@ const Carousel = ({ words: items }: CarouselProps) => {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
+      <div className="absolute bottom-0 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
         {items.map((item, index) => (
           <button
             key={index}

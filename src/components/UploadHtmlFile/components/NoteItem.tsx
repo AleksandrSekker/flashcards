@@ -2,6 +2,8 @@ import { SecondaryButton } from '~/components/Button/Buttons';
 import { type Note } from '~/components/UploadHtmlFile/types/types';
 import { useNotesStore } from '~/store/notesStore';
 import NoteModal from '~/components/UploadHtmlFile/components/NoteModal';
+import { faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type NoteItemProps = {
   note: Note;
@@ -22,6 +24,7 @@ const NoteItem = ({
     changeId,
     setChangeId,
     updatedData,
+    loading,
   } = useNotesStore();
 
   return (
@@ -43,6 +46,7 @@ const NoteItem = ({
       <SecondaryButton
         onClick={() => createCardFromInOpenAi(note.text)}
         color="green"
+        icon={loading ? (faSpinner as IconProp) : (faPlus as IconProp)}
       >
         Create Card
       </SecondaryButton>

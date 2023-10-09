@@ -6,6 +6,7 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import Form from '~/components/Form/Form';
 import { useNotesStore } from '~/store/notesStore';
+import { type IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
             <p className="dark:text-white">hi {session.user?.name}</p>
             <PrimaryButton
               color={'red'}
-              icon={faSignOut}
+              icon={faSignOut as IconProp}
               onClick={() => {
                 signOut().catch(console.log);
               }}
@@ -31,7 +32,7 @@ const Home: NextPage = () => {
           </>
         ) : (
           <PrimaryButton
-            icon={faDiscord}
+            icon={faDiscord as IconProp}
             onClick={() => {
               signIn('discord').catch(console.log);
             }}

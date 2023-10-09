@@ -1,6 +1,5 @@
 import create from 'zustand';
 import React from 'react';
-import { api } from '~/utils/api';
 
 type Note = {
   id: number;
@@ -28,6 +27,7 @@ type NotesStore = {
   setChangeId: (id: number) => void;
   updatedData: (id: number, changeValue: string) => void;
   createCardFromInOpenAi: (word: string) => void;
+  removeResponseFromOpenAi: () => void;
   displayedNotes: Note[];
   deleteNote: (id: number) => void;
   responseFromOpenAi: {
@@ -37,6 +37,7 @@ type NotesStore = {
     translation: string;
     image: string;
   };
+  loading: boolean;
 };
 
 export const useNotesStore = create<NotesStore>((set) => ({
@@ -48,6 +49,7 @@ export const useNotesStore = create<NotesStore>((set) => ({
     translation: '',
     image: '',
   },
+  loading: false,
   error: '',
   setError: (error) => set({ error }),
   responseNotes: [],
@@ -134,6 +136,7 @@ export const useNotesStore = create<NotesStore>((set) => ({
     });
   },
   createCardFromInOpenAi: async (word) => {
+    set({ loading: true });
     try {
       const response = await fetch(`/api/create-card?word=${word}`);
       if (!response.ok) {
@@ -141,8 +144,10 @@ export const useNotesStore = create<NotesStore>((set) => ({
       }
       const data = await response.json();
       set({ responseFromOpenAi: data }); // Set the state with OpenAI response
+      set({ loading: false });
     } catch (error) {
       console.error(error);
+      set({ loading: false });
     }
   },
   removeResponseFromOpenAi: () => {

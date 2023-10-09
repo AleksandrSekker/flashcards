@@ -64,23 +64,9 @@ model Flashcards {
     id          String      @id @default(cuid())
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
-    word        String      @db.VarChar(100)
+    word        String      @db.VarChar(100) @unique
     meaning     String      @db.Text
     examples    String      @db.Text
     translation String      @db.VarChar(100)
     image       String      @db.VarChar(100)
-}
-
-model EnglishWords {
-    id          String      @id @default(cuid())
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
-    word        String      @db.VarChar(100) @unique
-}
-
-model JapaneseWords {
-    id          String      @id @default(cuid())
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
-    word        String      @db.VarChar(100) @unique
 }

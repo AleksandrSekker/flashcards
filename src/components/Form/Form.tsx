@@ -8,6 +8,7 @@ import { schema } from '~/components/Form/Schema';
 import { PrimaryButton } from '~/components/Button/Buttons';
 import Image from 'next/image';
 import { api } from '~/utils/api';
+import { useNotesStore } from '~/store/notesStore';
 
 interface FormValues {
   word: string;
@@ -32,17 +33,11 @@ const Form = ({ className, defaultValuesProp }: FormProps) => {
     resolver: zodResolver(schema),
     defaultValues: defaultValuesProp,
   });
+  const { removeResponseFromOpenAi } = useNotesStore();
   const utils = api.useContext();
   const postFlashcard = api.flashcards.postCard.useMutation({
-    onMutate: async (newEntry) => {
+    onMutate: async () => {
       await utils.flashcards.getAll.cancel();
-      utils.flashcards.getAll.setData(undefined, (prevEntries) => {
-        if (prevEntries) {
-          return [newEntry, ...prevEntries];
-        } else {
-          return [newEntry];
-        }
-      });
     },
     onSettled: async () => {
       await utils.flashcards.getAll.invalidate();
@@ -59,7 +54,7 @@ const Form = ({ className, defaultValuesProp }: FormProps) => {
       image: watch('image'),
     } as FormValues);
     removeResponseFromOpenAi();
-  }, [postFlashcard, watch]);
+  }, [postFlashcard, removeResponseFromOpenAi, watch]);
 
   return (
     <form
